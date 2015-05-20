@@ -1,0 +1,32 @@
+---
+Addition:
+  inputs: [a,b]
+  outputs: [s]
+  mnemonic: "+"
+  tags: {t1: bla, t2: "it works!"}
+Subtraction:
+  inputs: [a,b]
+  outputs: [s]
+  mnemonic: "-"
+  tags: {}
+Multiplier:
+  inputs: [a,b]
+  outputs: [s]
+  mnemonic: "x"
+  tags: {}
+Division:
+  inputs: [a,b]
+  outputs: [s]
+  mnemonic: "\u00F7"
+  tags: {}
+Reminder:
+  inputs: [a,b]
+  outputs: [s]
+  mnemonic: "%"
+  tags: {}
+Square root:
+  inputs: [n]
+  outputs: [s]
+  mnemonic: "\u221A"
+  tags: {}
+  
