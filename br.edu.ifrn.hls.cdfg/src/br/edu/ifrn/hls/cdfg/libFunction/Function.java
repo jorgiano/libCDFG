@@ -29,11 +29,11 @@ public class Function {
 		this.name = name;
 		inputs = new String[numberOfInputs];
 		for (int i = 0; i < numberOfInputs; i++) {
-			inputs[i] = "i" + (i + 1);
+			inputs[i] = "i" + i;
 		}
 		outputs = new String[numberOfOutputs];
 		for (int i = 0; i < numberOfOutputs; i++) {
-			outputs[i] = "o" + (i + 1);
+			outputs[i] = "o" + i;
 		}
 		tags = new HashMap<String, Object>();
 	}
@@ -51,31 +51,28 @@ public class Function {
 	}
 
 	public String getInputName(int index) {
-		int i = index - 1;
+
 		String name = null;
-		if ((i >= 0) && (i < inputs.length))
-			name = inputs[i];
+		if ((index >= 0) && (index < inputs.length))
+			name = inputs[index];
 		return name;
 	}
 
 	public void setInputName(int index, String name) {
-		int i = index - 1;
-		if ((i >= 0) && (i < inputs.length))
-			inputs[i] = name;
+		if ((index >= 0) && (index < inputs.length))
+			inputs[index] = name;
 	}
 
 	public String getOutputName(int index) {
-		int i = index - 1;
 		String name = null;
-		if ((i >= 0) && (i < outputs.length))
-			name = outputs[i];
+		if ((index >= 0) && (index < outputs.length))
+			name = outputs[index];
 		return name;
 	}
 
 	public void setOutputName(int index, String name) {
-		int i = index - 1;
-		if ((i >= 0) && (i < outputs.length))
-			outputs[i] = name;
+		if ((index >= 0) && (index < outputs.length))
+			outputs[index] = name;
 	}
 
 	public int getNumberOfOutputs() {

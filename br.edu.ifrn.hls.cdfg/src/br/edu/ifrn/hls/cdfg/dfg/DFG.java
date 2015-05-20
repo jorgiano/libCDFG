@@ -6,10 +6,10 @@ import java.util.Map;
 public class DFG {
 
 	private String name;
-	private List<DFGNode> nodes;
+	private List<DFGOperationNode> nodes;
 	private List<DFGVertex> vertex;
-	private List<DFGNode> sinks;
-	private List<DFGNode> sources;
+	private List<DFGInputNode> inputs;
+	private List<DFGOutputNode> outputs;
 
 	private Map<String, Object> tags;
 
