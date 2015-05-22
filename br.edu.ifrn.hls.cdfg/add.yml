@@ -16,17 +16,18 @@ nodes:
     inputs: [a: i32, b: i32]
     outputs: [s: i32]
     tags: {}
-vertex:
-  source: inputs.a
-  targets: [nodes.op1.inputs.a]
-  tags: {}
-vertex:
-  source: inputs.b
-  targets: [nodes.op1.inputs.b]
-  tags: {}
-vertex:
-  source: nodes.op1.s
-  targets: [outputs.s]
+vertices:
+  v1:
+    source: inputs.a
+    targets: [nodes.op1.inputs.a]
+    tags: {}
+  v2:
+    source: inputs.b
+    targets: [nodes.op1.inputs.b]
+    tags: {}
+  v3:
+    source: nodes.op1.s
+    targets: [outputs.s]
      
 
   
