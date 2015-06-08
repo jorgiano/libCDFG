@@ -96,11 +96,6 @@ public class Function {
 		return name;
 	}
 
-	public String toYAML() {
-		StringBuilder yaml = new StringBuilder();
-		return yaml.toString();
-	}
-
 	public String toString() {
 		String sep = " ";
 		StringBuilder sb = new StringBuilder();
