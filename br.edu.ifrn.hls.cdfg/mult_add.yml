@@ -1,6 +1,6 @@
 ---
 name:
-  adder
+  add_mult
 nodes:
   bb0:
     nodes:
@@ -11,12 +11,21 @@ nodes:
         b: 
           type: i32
           tags: {}
+        c:
+          type: i32
+          tags: {}
       outputs:
         s: 
           type: i32
           tags: {}
       operations:
         op1:
+          function: Multiplication
+          inputs: [a: i32, b: i32]
+          outputs: [s: i32]
+          depends_on: [] #List of operation dependency (mainly for read/write operations)
+          tags: {}
+        op2:
           function: Addition
           inputs: [a: i32, b: i32]
           outputs: [s: i32]
@@ -25,14 +34,22 @@ nodes:
     vertices:
       v1:
         source: {type: input, name: a}
-        targets: [{type: operation, name: op1, port: a}]
+        targets: [{type: operation, name: op2, port: a}]
         tags: {}
       v2:
         source: {type: input, name: b}
-        targets: [{type: operation, name: op1, port: b}]
+        targets: [{type: operation, name: op1, port: a}]
         tags: {}
       v3:
+        source: {type: input, name: c}
+        targets: [{type: operation, name: op1, port: b}]
+        tags: {}
+      v4:
         source: {type: operation, name: op1, port: s}
+        targets: [{type: operation, name: op2, port: b}]
+        tags: {}
+      v5:
+        source: {type: operation, name: op2, port: s}
         targets: [{type: output, name: s}]
         tags: {}
     tags: {}

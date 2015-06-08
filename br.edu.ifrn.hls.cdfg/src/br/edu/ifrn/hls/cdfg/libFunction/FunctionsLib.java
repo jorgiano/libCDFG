@@ -62,8 +62,7 @@ public class FunctionsLib {
 		List<String> inputs = (List<String>) attributes.get("inputs");
 		List<String> outputs = (List<String>) attributes.get("outputs");
 		String mnemonic = (String) attributes.get("mnemonic");
-		HashMap<String, Object> tags = (HashMap<String, Object>) attributes
-				.get("tags");
+		Map<String, Object> tags = (Map<String, Object>) attributes.get("tags");
 		try {
 			Function f = new Function(functionName, inputs.size(),
 					outputs.size(), mnemonic);
