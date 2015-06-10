@@ -1,131 +1,40 @@
 package br.edu.ifrn.hls.cdfg.dfg;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import br.edu.ifrn.hls.cdfg.libFunction.Function;
-import br.edu.ifrn.hls.cdfg.libFunction.FunctionsLib;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DFG {
 
+	private final static Logger LOGGER = Logger.getLogger(DFG.class.getName());
+
 	private String name;
-	private List<DFGOperationNode> nodes;
-	private List<DFGVertex> vertices;
-	private List<DFGInputNode> inputs;
-	private List<DFGOutputNode> outputs;
+	private Map<String, DFGOperationNode> nodes;
+	private Map<String, DFGVertex> vertices;
+	private Map<String, DFGInputNode> inputs;
+	private Map<String, DFGOutputNode> outputs;
 
 	private Map<String, Object> tags;
 
 	private void init() {
-		nodes = new ArrayList<DFGOperationNode>();
-		vertices = new ArrayList<DFGVertex>();
-		inputs = new ArrayList<DFGInputNode>();
-		outputs = new ArrayList<DFGOutputNode>();
+		nodes = new HashMap<String, DFGOperationNode>();
+		vertices = new HashMap<String, DFGVertex>();
+		inputs = new HashMap<String, DFGInputNode>();
+		outputs = new HashMap<String, DFGOutputNode>();
 		tags = new HashMap<String, Object>();
-
 	}
 
 	public DFG() {
 		this.init();
 		this.setName("noname");
+		LOGGER.log(Level.INFO, "Creating DFG noname");
 	}
 
 	public DFG(String name) {
+		LOGGER.log(Level.INFO, "Creating DFG " + name);
 		this.init();
 		this.setName(name);
-	}
-
-	public void buildFromYAML(Map data) {
-
-		@SuppressWarnings("unchecked")
-		Map<String, Object> nodes = (Map<String, Object>) data.get("nodes");
-		setDFGNodes(nodes);
-		Map<String, Object> vertices = ((Map<String, Object>) data
-				.get("vertices"));
-		setDFGVertices(vertices);
-
-	}
-
-	private void setDFGVertices(Map<String, Object> vertices) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void setDFGNodes(Map<String, Object> dfgNodes) {
-		@SuppressWarnings("unchecked")
-		Map<String, Object> inputs = ((Map<String, Object>) dfgNodes
-				.get("inputs"));
-		setInputNodes(inputs);
-		Map<String, Object> outputs = ((Map<String, Object>) dfgNodes
-				.get("outputs"));
-		setOutputNodes(outputs);
-		Map<String, Object> operations = ((Map<String, Object>) dfgNodes
-				.get("operations"));
-		setOperationNodes(operations);
-	}
-
-	private void setOperationNodes(Map<String, Object> operations) {
-		for (String operationName : operations.keySet()) {
-			System.out.println("Building OP node " + operationName);
-			Map<String, Object> nodeData = (Map<String, Object>) operations
-					.get(operationName);
-			String functionName = (String) nodeData.get("function");
-			Function function = FunctionsLib.getFunctionsLib().getFunction(
-					functionName);
-			DFGOperationNode node = new DFGOperationNode(function);
-			List inputs = (List) nodeData.get("inputs");
-			
-			for (Object o : inputs) {
-				Map input = (Map) o;
-				String inputName = (String) input.keySet().iterator().next();
-				String type = (String) input.get(inputName);
-				
-			}
-
-		}
-
-	}
-
-	private void setOutputNodes(Map<String, Object> outputs) {
-		for (String outputName : outputs.keySet()) {
-			DFGOutputNode output = new DFGOutputNode();
-			output.setName(outputName);
-			@SuppressWarnings("unchecked")
-			Map<String, Object> outputData = (Map<String, Object>) outputs
-					.get(outputName);
-			String type = (String) outputData.get("type");
-			output.setType(type);
-			System.out.println("Output created: " + output.toString());
-			@SuppressWarnings("unchecked")
-			Map<String, Object> tags = (Map<String, Object>) outputData
-					.get("tags");
-			if (tags != null)
-				for (String tagName : tags.keySet()) {
-					output.addTag(tagName, tags.get(tagName));
-				}
-		}
-	}
-
-	private void setInputNodes(Map<String, Object> inputs) {
-		for (String inputName : inputs.keySet()) {
-			DFGInputNode input = new DFGInputNode();
-			input.setName(inputName);
-			@SuppressWarnings("unchecked")
-			Map<String, Object> inputData = (Map<String, Object>) inputs
-					.get(inputName);
-			String type = (String) inputData.get("type");
-			input.setType(type);
-			System.out.println("Input created: " + input.toString());
-			@SuppressWarnings("unchecked")
-			Map<String, Object> tags = (Map<String, Object>) inputData
-					.get("tags");
-			if (tags != null)
-				for (String tagName : tags.keySet()) {
-					input.addTag(tagName, tags.get(tagName));
-				}
-		}
 	}
 
 	public void addTag(String key, Object tag) {
@@ -141,10 +50,6 @@ public class DFG {
 		return tags.size();
 	}
 
-	boolean check() {
-		return false;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -153,4 +58,64 @@ public class DFG {
 		this.name = name;
 	}
 
+	public void addInputNode(DFGInputNode input) {
+		/* TODO: check integrity (input name, etc) */
+		LOGGER.log(Level.FINE, "Adding input " + input.getName() + " to DFG "
+				+ this.name);
+		inputs.put(input.getName(), input);
+
+	}
+
+	public DFGInputNode getInputByName(String name) {
+		return this.inputs.get(name);
+	}
+
+	public void addOutputNode(DFGOutputNode output) {
+		/* TODO check integrity (input name, etc) */
+		LOGGER.log(Level.FINE, "Adding output " + output.getName() + " to DFG "
+				+ this.name);
+		outputs.put(output.getName(), output);
+
+	}
+
+	public DFGOutputNode getOutputByName(String name) {
+		return this.outputs.get(name);
+	}
+
+	public void addOperationNode(DFGOperationNode operation) {
+		/* TODO: check integrity */
+		LOGGER.log(Level.FINE, "Adding operation "
+				+ operation.getFunction().getName() + " to DFG " + this.name);
+		nodes.put(operation.getName(), operation);
+	}
+
+	public void addVertex(DFGVertex vertex) {
+		/* TODO: check integrity */
+		LOGGER.log(Level.FINE, "Adding Vertex");
+		vertices.put(vertex.getName(), vertex);
+	}
+
+	public boolean check() {
+		return false;
+	}
+
+	public int numberOfInputs() {
+		return inputs.size();
+	}
+
+	public int numberOfOutputs() {
+		return outputs.size();
+	}
+
+	public int numberOfNodes() {
+		return nodes.size();
+	}
+
+	public int numberOfVertices() {
+		return vertices.size();
+	}
+
+	public DFGOperationNode getOperationByName(String name) {
+		return this.nodes.get(name);
+	}
 }

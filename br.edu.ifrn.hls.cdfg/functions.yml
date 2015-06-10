@@ -9,7 +9,7 @@ Subtraction:
   outputs: [s]
   mnemonic: "-"
   tags: {}
-Multiplier:
+Multiplication:
   inputs: [a,b]
   outputs: [s]
   mnemonic: "x"

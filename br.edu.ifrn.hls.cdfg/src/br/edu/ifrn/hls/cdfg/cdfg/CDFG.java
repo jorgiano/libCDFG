@@ -1,12 +1,8 @@
 package br.edu.ifrn.hls.cdfg.cdfg;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.yaml.snakeyaml.Yaml;
 
 import br.edu.ifrn.hls.cdfg.dfg.DFG;
 import br.edu.ifrn.hls.cdfg.libFunction.FunctionsLib;

@@ -21,14 +21,14 @@ nodes:
       operations:
         op1:
           function: Multiplication
-          inputs: [a: i32, b: i32]
-          outputs: [s: i32]
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
           depends_on: [] #List of operation dependency (mainly for read/write operations)
           tags: {}
         op2:
           function: Addition
-          inputs: [a: i32, b: i32]
-          outputs: [s: i32]
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
           depends_on: [] #List of operation dependency (mainly for read/write operations)
           tags: {}
     vertices:
