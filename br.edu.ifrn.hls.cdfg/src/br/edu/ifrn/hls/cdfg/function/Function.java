@@ -1,4 +1,4 @@
-package br.edu.ifrn.hls.cdfg.libFunction;
+package br.edu.ifrn.hls.cdfg.function;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ public class Function {
 	private String name;
 	private String[] inputs;
 	private String[] outputs;
-	private Map<String, Object> tags;
+	private Map<String, String> tags;
 
 	/*
 	 * TODO: Name should not be null
@@ -35,7 +35,7 @@ public class Function {
 		for (int i = 0; i < numberOfOutputs; i++) {
 			outputs[i] = "o" + i;
 		}
-		tags = new HashMap<String, Object>();
+		tags = new HashMap<String, String>();
 	}
 
 	public void setmnemonic(String mnemonic) {
@@ -46,8 +46,30 @@ public class Function {
 		return this.mnemonic;
 	}
 
-	public int getNUmberOfInputs() {
+	public int getNumberOfInputs() {
 		return inputs.length;
+	}
+
+	public int getInputIndexByName(String inputName) {
+		int index = -1;
+		for (int i = 0; i < inputs.length; i++) {
+			if (inputName.equals(inputs[i])) {
+				index = i;
+				break;
+			}
+		}
+		return index;
+	}
+
+	public int getOutputIndexByName(String outputName) {
+		int index = -1;
+		for (int i = 0; i < outputs.length; i++) {
+			if (outputName.equals(outputs[i])) {
+				index = i;
+				break;
+			}
+		}
+		return index;
 	}
 
 	public String getInputName(int index) {
@@ -79,21 +101,12 @@ public class Function {
 		return outputs.length;
 	}
 
-	public void addTag(String key, Object tag) {
-		tags.put(key, tag);
-	}
-
-	public void removeTag(String key) {
-		if (tags.get(key) != null)
-			tags.remove(key);
-	}
-
-	public int getNumberOfTags() {
-		return tags.size();
-	}
-
 	public String getName() {
 		return name;
+	}
+
+	public Map<String, String> getTags() {
+		return this.tags;
 	}
 
 	public String toString() {

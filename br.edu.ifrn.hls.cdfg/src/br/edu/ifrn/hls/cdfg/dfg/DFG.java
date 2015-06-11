@@ -15,14 +15,18 @@ public class DFG {
 	private Map<String, DFGInputNode> inputs;
 	private Map<String, DFGOutputNode> outputs;
 
-	private Map<String, Object> tags;
+	private Map<String, String> tags;
+
+	public Map<String, String> getTags() {
+		return this.tags;
+	}
 
 	private void init() {
 		nodes = new HashMap<String, DFGOperationNode>();
 		vertices = new HashMap<String, DFGVertex>();
 		inputs = new HashMap<String, DFGInputNode>();
 		outputs = new HashMap<String, DFGOutputNode>();
-		tags = new HashMap<String, Object>();
+		tags = new HashMap<String, String>();
 	}
 
 	public DFG() {
@@ -35,19 +39,6 @@ public class DFG {
 		LOGGER.log(Level.INFO, "Creating DFG " + name);
 		this.init();
 		this.setName(name);
-	}
-
-	public void addTag(String key, Object tag) {
-		tags.put(key, tag);
-	}
-
-	public void removeTag(String key) {
-		if (tags.get(key) != null)
-			tags.remove(key);
-	}
-
-	public int getNumberOfTags() {
-		return tags.size();
 	}
 
 	public String getName() {
@@ -95,10 +86,6 @@ public class DFG {
 		vertices.put(vertex.getName(), vertex);
 	}
 
-	public boolean check() {
-		return false;
-	}
-
 	public int numberOfInputs() {
 		return inputs.size();
 	}
@@ -117,5 +104,89 @@ public class DFG {
 
 	public DFGOperationNode getOperationByName(String name) {
 		return this.nodes.get(name);
+	}
+
+	public boolean check() {
+		boolean ok = this.name != null;
+		ok = ok && checkInputs();
+		ok = ok && checkOutputs();
+		ok = ok && checkOperations();
+		ok = ok && checkVertices();
+		ok = ok && checkCycles();
+		return ok;
+	}
+
+	private boolean checkCycles() {
+		boolean ok = true;
+		System.out
+				.println("IMPORTANT: The check method is not checking for DFG cycles!!!");
+		return ok;
+	}
+
+	private boolean checkOperations() {
+		boolean ok = true;
+		for (DFGOperationNode node : this.nodes.values()) {
+			ok = ok && (node.check());
+			ok = ok && (node.getDFG() == this);
+		}
+		return ok;
+	}
+
+	private boolean checkOutputs() {
+		boolean ok = true;
+		for (DFGOutputNode output : outputs.values()) {
+			ok = ok
+					&& (output.check() && output.getInputPort()
+							.getConnectedTo() != null);
+			ok = ok && (output.getDFG() == this);
+
+		}
+		return ok;
+	}
+
+	private boolean checkInputs() {
+		boolean ok = true;
+		for (DFGInputNode input : inputs.values()) {
+			ok = ok
+					&& (input.check() && input.getOutputPort().getConnectedTo() != null);
+			ok = ok && (input.getDFG() == this);
+
+		}
+
+		return ok;
+	}
+
+	private boolean checkVertices() {
+		boolean ok = true;
+		for (DFGVertex vertex : this.vertices.values()) {
+			ok = ok && vertex.check();
+			ok = ok && (vertex.getDFG() == this);
+		}
+
+		return ok;
+	}
+
+	public String toYAML() {
+		StringBuilder sb = new StringBuilder("  ");
+		sb.append(this.getName()).append(":\n");
+		sb.append("    nodes:\n");
+		sb.append("      inputs:\n");
+		for (DFGInputNode input : this.inputs.values()) {
+			sb.append(input.toYAML());
+		}
+		sb.append("      outputs:\n");
+		for (DFGOutputNode output : this.outputs.values()) {
+			sb.append(output.toYAML());
+		}
+		sb.append("      operations:\n");
+		for (DFGOperationNode node : this.nodes.values()) {
+			sb.append(node.toYAML());
+		}
+		sb.append("    vertices:\n");
+		for (DFGVertex vertex : this.vertices.values()) {
+			sb.append(vertex.toYAML());
+		}
+		sb.append("    tags: {}\n");
+		return sb.toString();
 	}
 }

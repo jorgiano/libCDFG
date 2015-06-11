@@ -1,4 +1,4 @@
-package br.edu.ifrn.hls.cdfg.libFunction;
+package br.edu.ifrn.hls.cdfg.function;
 
 import java.io.FileNotFoundException;
 

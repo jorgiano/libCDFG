@@ -1,4 +1,4 @@
-package br.edu.ifrn.hls.cdfg.libFunction;
+package br.edu.ifrn.hls.cdfg.function;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,14 +67,14 @@ public class FunctionsLib {
 			Function f = new Function(functionName, inputs.size(),
 					outputs.size(), mnemonic);
 			for (int i = 0; i < inputs.size(); i++) {
-				f.setInputName(i + 1, inputs.get(i));
+				f.setInputName(i, inputs.get(i));
 			}
 			for (int i = 0; i < outputs.size(); i++) {
-				f.setOutputName(i + 1, outputs.get(i));
+				f.setOutputName(i, outputs.get(i));
 			}
 			this.addFunction(f);
 			for (String tagName : tags.keySet()) {
-				f.addTag(tagName, tags.get(tagName));
+				f.getTags().put(tagName, (String) tags.get(tagName));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

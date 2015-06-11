@@ -1,4 +1,4 @@
-package br.edu.ifrn.hls.cdfg.dfg;
+package br.edu.ifrn.hls.cdfg.test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,9 +10,12 @@ import java.util.logging.Logger;
 
 import org.yaml.snakeyaml.Yaml;
 
-import br.edu.ifrn.hls.cdfg.libFunction.FunctionsLib;
+import br.edu.ifrn.hls.cdfg.cdfg.CDFG;
+import br.edu.ifrn.hls.cdfg.dfg.DFG;
+import br.edu.ifrn.hls.cdfg.dfg.DFGBuilder;
+import br.edu.ifrn.hls.cdfg.function.FunctionsLib;
 
-public class TestDFG {
+public class TestCDFG {
 
 	private final static Logger LOGGER = Logger
 			.getLogger("br.edu.ifrn.hls.cdfg.*");
@@ -21,10 +24,12 @@ public class TestDFG {
 
 		LOGGER.setLevel(Level.FINE);
 		DFG initDFG = null;
+		CDFG cdfg = null;
 		LOGGER.log(Level.INFO, "Test load init DFG from YAML file");
 		try {
 			FunctionsLib.getFunctionsLib().loadFromFile("functions.yml");
-			initDFG = loadInitFromYAMLFile("mult_add.yml");
+			cdfg = loadInitFromYAMLFile("mult_add.yml");
+			initDFG = cdfg.getInitDFG();
 			System.out.println("\n\ninit DFG: " + initDFG);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -33,21 +38,25 @@ public class TestDFG {
 		}
 	}
 
-	private static DFG loadInitFromYAMLFile(String filename) throws IOException {
+	private static CDFG loadInitFromYAMLFile(String filename)
+			throws IOException {
 		DFG init = null;
 		File f = new File(filename);
 		FileInputStream fis = new FileInputStream(f);
 		Yaml yaml = new Yaml();
 		Object data = yaml.load(fis);
+		CDFG cdfg = new CDFG();
 		if (data instanceof Map) {
 			@SuppressWarnings("unchecked")
-			Map<String, Object> cdfg = (Map<String, Object>) data;
+			Map<String, Object> cdfgData = (Map<String, Object>) data;
+			String name = (String) cdfgData.get("name");
+			cdfg.setName(name);
 			@SuppressWarnings("unchecked")
-			Map<String, Object> initDFG = (Map<String, Object>) cdfg
+			Map<String, Object> initDFG = (Map<String, Object>) cdfgData
 					.get("init");
 			String initDFGName = (String) initDFG.get("name");
 			@SuppressWarnings("unchecked")
-			Map<String, Object> cdfgNodes = (Map<String, Object>) cdfg
+			Map<String, Object> cdfgNodes = (Map<String, Object>) cdfgData
 					.get("nodes");
 			LOGGER.log(Level.INFO, "Building init node " + initDFGName);
 			@SuppressWarnings("unchecked")
@@ -55,6 +64,8 @@ public class TestDFG {
 					.get(initDFGName);
 			init = DFGBuilder.buildDFGfromYAMLMap(dfgNodes);
 			init.setName(initDFGName);
+			cdfg.addNode(init);
+			cdfg.setInitDFG(init);
 			System.out.println("DFG " + init.getName());
 			System.out.println("  Number of Inputs     = "
 					+ init.numberOfInputs());
@@ -64,10 +75,12 @@ public class TestDFG {
 					+ init.numberOfNodes());
 			System.out.println("  Number of Vertices   = "
 					+ init.numberOfVertices());
-
+			System.out.println("  Test                 = " + init.check());
+			System.out.println("\n\nYAML:");
+			System.out.println(cdfg.toYAML());
 		}
 		fis.close();
-		return init;
+		return cdfg;
 
 	}
 }

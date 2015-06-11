@@ -1,5 +1,7 @@
 package br.edu.ifrn.hls.cdfg.dfg;
 
+import br.edu.ifrn.hls.cdfg.cdfg.CDFG;
+
 public class DFGNodePort {
 
 	private String name;
@@ -37,6 +39,10 @@ public class DFGNodePort {
 
 	public void setNode(DFGNode node) {
 		this.node = node;
+	}
+
+	public boolean check() {
+		return node != null && connectedTo != null && CDFG.checkType(type);
 	}
 
 }

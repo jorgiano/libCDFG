@@ -1,29 +1,57 @@
 package br.edu.ifrn.hls.cdfg.cdfg;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
 import br.edu.ifrn.hls.cdfg.dfg.DFG;
-import br.edu.ifrn.hls.cdfg.libFunction.FunctionsLib;
 
 public class CDFG {
 
 	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	private Map<String, DFG> nodes;
+	private Map<String, CDFGVertex> vertices;
 	private DFG init;
-	private Map<String, Object> tags;
+	private Map<String, String> tags;
 
 	public CDFG() {
 		nodes = new HashMap<String, DFG>();
-		tags = new HashMap<String, Object>();
+		tags = new HashMap<String, String>();
 	}
 
-
-	static boolean checkType(String typeName) {
+	public static boolean checkType(String typeName) {
 		if (typeName.equals("i16") || typeName.equals("i32"))
 			return true;
 		return false;
+	}
+
+	public String toYAML() {
+		StringBuilder sb = new StringBuilder("---\n");
+		sb.append("name:\n");
+		sb.append("  ").append(this.getName()).append("\n");
+		sb.append("nodes:\n");
+		if (this.nodes != null)
+			for (DFG node : this.nodes.values()) {
+				sb.append(node.toYAML());
+			}
+		sb.append("vertices:\n");
+		if (this.vertices != null)
+			for (CDFGVertex vertex : this.vertices.values()) {
+				sb.append(vertex.toYAML());
+			}
+		sb.append("init:\n");
+		sb.append("  name: ").append(this.init.getName()).append("\n");
+		sb.append("tags: {}\n");
+		return sb.toString();
+
 	}
 
 	public String toString() {
@@ -33,15 +61,22 @@ public class CDFG {
 		return sb.toString();
 	}
 
-	public static void main(String args[]) {
-		System.out.println("\n\n Teste de load de DFG");
-		try {
-			FunctionsLib.getFunctionsLib().loadFromFile("functions.yml");
-			CDFG cdfg = new CDFG();
-			//cdfg.loadFromYAMLFile("add.yml");
-			System.out.println("\n\nCDFG:\n" + cdfg);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+	public void setInitDFG(DFG init) {
+		this.init = init;
+
 	}
+
+	public DFG getInitDFG() {
+		return this.init;
+	}
+
+	public void addNode(DFG node) {
+		this.nodes.put(node.getName(), node);
+
+	}
+
+	public Map<String, String> getTags() {
+		return this.tags;
+	}
+
 }

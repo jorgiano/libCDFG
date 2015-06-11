@@ -8,12 +8,21 @@ public abstract class DFGNode {
 
 	protected Map<String, DFGNodePort> inputs;
 	protected Map<String, DFGNodePort> outputs;
-
-	private Map<String, Object> tags;
+	protected DFG dfg;
+	private Map<String, String> tags;
 
 	public DFGNode() {
 		inputs = new HashMap<String, DFGNodePort>();
 		outputs = new HashMap<String, DFGNodePort>();
+		tags = new HashMap<String, String>();
+	}
+
+	public DFG getDFG() {
+		return dfg;
+	}
+
+	public void setDFG(DFG dfg) {
+		this.dfg = dfg;
 	}
 
 	public void addInput(DFGNodePort port) {
@@ -56,21 +65,21 @@ public abstract class DFGNode {
 		outputs.remove(name);
 	}
 
-	public void addTag(String key, Object tag) {
-		tags.put(key, tag);
-	}
-
-	public void removeTag(String key) {
-		if (tags.get(key) != null)
-			tags.remove(key);
-	}
-
-	public int getNumberOfTags() {
-		return tags.size();
+	public Map<String, String> getTags() {
+		return this.tags;
 	}
 
 	public boolean check() {
-		return false;
+		boolean ok = true;
+		for (DFGNodePort port : inputs.values()) {
+			ok = ok && port.check();
+			ok = ok && (port.getNode() == this);
+		}
+		for (DFGNodePort port : outputs.values()) {
+			ok = ok && port.check();
+			ok = ok && (port.getNode() == this);
+		}
+		return ok;
 	}
 
 }

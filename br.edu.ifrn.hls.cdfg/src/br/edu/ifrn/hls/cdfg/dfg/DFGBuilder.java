@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.edu.ifrn.hls.cdfg.libFunction.Function;
-import br.edu.ifrn.hls.cdfg.libFunction.FunctionsLib;
+import br.edu.ifrn.hls.cdfg.function.Function;
+import br.edu.ifrn.hls.cdfg.function.FunctionsLib;
 
 public class DFGBuilder {
 
@@ -60,8 +60,9 @@ public class DFGBuilder {
 					.get("tags");
 			if (tags != null)
 				for (String tagName : tags.keySet()) {
-					input.addTag(tagName, tags.get(tagName));
+					input.getTags().put(tagName, (String) tags.get(tagName));
 				}
+			input.setDFG(dfg);
 			dfg.addInputNode(input);
 		}
 
@@ -79,8 +80,9 @@ public class DFGBuilder {
 					.get("tags");
 			if (tags != null)
 				for (String tagName : tags.keySet()) {
-					output.addTag(tagName, tags.get(tagName));
+					output.getTags().put(tagName, (String) tags.get(tagName));
 				}
+			output.setDFG(dfg);
 			dfg.addOutputNode(output);
 		}
 	}
@@ -104,6 +106,7 @@ public class DFGBuilder {
 			Map<String, Object> outputs = (Map<String, Object>) nodeData
 					.get("outputs");
 			buildDFGNodeOutputPorts(node, outputs);
+			node.setDFG(dfg);
 			dfg.addOperationNode(node);
 
 		}
@@ -157,6 +160,7 @@ public class DFGBuilder {
 			Map<String, Object> tags = (Map<String, Object>) vertexData
 					.get("tags");
 			buildVertexTags(vertex, tags);
+			vertex.setDFG(dfg);
 			dfg.addVertex(vertex);
 		}
 	}
@@ -179,6 +183,8 @@ public class DFGBuilder {
 			} else if (targetType.equalsIgnoreCase("output")) {
 				DFGNodePort outputPort = dfg.getOutputByName(targetName)
 						.getInputByName(targetName);
+				System.out.println("Setting output port "
+						+ outputPort.getName());
 				vertex.addTarget(outputPort);
 				outputPort.setConnectedTo(vertex);
 
