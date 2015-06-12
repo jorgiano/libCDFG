@@ -1,8 +1,13 @@
 package br.edu.ifrn.hls.cdfg.dfg;
 
+import java.util.logging.Logger;
+
 import br.edu.ifrn.hls.cdfg.function.Function;
 
 public class DFGOperationNode extends DFGNode {
+
+	private final static Logger LOGGER = Logger
+			.getLogger(DFGOperationNode.class.getName());
 
 	private Function function;
 

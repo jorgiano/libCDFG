@@ -1,8 +1,13 @@
 package br.edu.ifrn.hls.cdfg.dfg;
 
-import br.edu.ifrn.hls.cdfg.cdfg.CDFG;
+import java.util.logging.Logger;
+
+import br.edu.ifrn.hls.cdfg.cfg.CFG;
 
 public class DFGNodePort {
+
+	private final static Logger LOGGER = Logger.getLogger(DFGNodePort.class
+			.getName());
 
 	private String name;
 	private String type;
@@ -42,7 +47,7 @@ public class DFGNodePort {
 	}
 
 	public boolean check() {
-		return node != null && connectedTo != null && CDFG.checkType(type);
+		return node != null && connectedTo != null && CFG.checkType(type);
 	}
 
 }

@@ -7,22 +7,28 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.yaml.snakeyaml.Yaml;
 
-public class FunctionsLib {
+import br.edu.ifrn.hls.cdfg.dfg.DFG;
+
+public class FunctionLib {
+	
+	private final static Logger LOGGER = Logger.getLogger(FunctionLib.class.getName());
+
 
 	private Map<String, Function> _functions;
 
-	static private FunctionsLib _functionsLib;
+	static private FunctionLib _functionsLib;
 
-	private FunctionsLib() {
+	private FunctionLib() {
 		_functions = new HashMap<String, Function>();
 	}
 
-	static public FunctionsLib getFunctionsLib() {
+	static public FunctionLib getFunctionsLib() {
 		if (_functionsLib == null)
-			_functionsLib = new FunctionsLib();
+			_functionsLib = new FunctionLib();
 		return _functionsLib;
 	}
 

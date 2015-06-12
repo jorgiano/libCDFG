@@ -1,6 +1,11 @@
 package br.edu.ifrn.hls.cdfg.dfg;
 
+import java.util.logging.Logger;
+
 public class DFGOutputNode extends DFGNode {
+
+	private final static Logger LOGGER = Logger.getLogger(DFGOutputNode.class
+			.getName());
 
 	public DFGOutputNode(String name, String type) {
 		DFGNodePort port = new DFGNodePort();

@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 public class TestFunctionLib {
 
 	public static void main(String[] args) {
-		FunctionsLib functions = FunctionsLib.getFunctionsLib();
+		FunctionLib functions = FunctionLib.getFunctionsLib();
 		try {
 			functions.loadFromFile("functions.yml");
 		} catch (FileNotFoundException e) {

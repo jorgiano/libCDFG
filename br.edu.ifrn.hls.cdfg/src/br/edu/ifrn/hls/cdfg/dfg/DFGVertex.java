@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class DFGVertex {
+
+	private final static Logger LOGGER = Logger.getLogger(DFGVertex.class
+			.getName());
 
 	private String name;
 	private DFGNodePort source;
@@ -24,12 +28,12 @@ public class DFGVertex {
 
 	}
 
-	public DFGNodePort getFrom() {
-		return source;
+	public DFGNodePort getSource() {
+		return this.source;
 	}
 
-	public void setFrom(DFGNodePort from) {
-		this.source = from;
+	public void setSource(DFGNodePort source) {
+		this.source = source;
 	}
 
 	public int numberOfTargets() {
@@ -77,17 +81,18 @@ public class DFGVertex {
 		StringBuilder sb = new StringBuilder("      ");
 		sb.append(this.getName()).append(":\n");
 		sb.append("        source: { type: ");
-		if (this.getFrom().getNode() instanceof DFGInputNode) {
+		if (this.getSource().getNode() instanceof DFGInputNode) {
 			sb.append("input, name: ");
-			sb.append(this.getFrom().getName());
+			sb.append(this.getSource().getName());
 			sb.append("}\n");
-		} else if (this.getFrom().getNode() instanceof DFGOperationNode) {
-			DFGOperationNode node = (DFGOperationNode) this.getFrom().getNode();
+		} else if (this.getSource().getNode() instanceof DFGOperationNode) {
+			DFGOperationNode node = (DFGOperationNode) this.getSource()
+					.getNode();
 			sb.append("operation, name: ");
 			sb.append(node.getName());
-			sb.append(", port: ").append(this.getFrom().getName());
+			sb.append(", port: ").append(this.getSource().getName());
 			sb.append("}\n");
-		} else if (this.getFrom().getNode() instanceof DFGOutputNode) {
+		} else if (this.getSource().getNode() instanceof DFGOutputNode) {
 			System.out.println("Error: outputport set as vertex source!");
 		}
 		sb.append("        targets: [");

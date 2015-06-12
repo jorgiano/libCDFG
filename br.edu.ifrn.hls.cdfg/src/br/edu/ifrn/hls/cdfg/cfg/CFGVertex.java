@@ -1,13 +1,19 @@
-package br.edu.ifrn.hls.cdfg.cdfg;
+package br.edu.ifrn.hls.cdfg.cfg;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
-public class CDFGVertex {
+import br.edu.ifrn.hls.cdfg.dfg.DFG;
+
+public class CFGVertex {
+
+	private final static Logger LOGGER = Logger.getLogger(CFGVertex.class
+			.getName());
 
 	private Map<String, String> tags;
 
-	public CDFGVertex() {
+	public CFGVertex() {
 		this.tags = new HashMap<String, String>();
 	}
 

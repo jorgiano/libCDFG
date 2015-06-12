@@ -2,8 +2,12 @@ package br.edu.ifrn.hls.cdfg.function;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Function {
+
+	private final static Logger LOGGER = Logger.getLogger(Function.class
+			.getName());
 
 	private String mnemonic;
 	private String name;

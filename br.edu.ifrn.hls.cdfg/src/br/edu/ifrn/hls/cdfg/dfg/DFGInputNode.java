@@ -1,6 +1,10 @@
 package br.edu.ifrn.hls.cdfg.dfg;
 
+import java.util.logging.Logger;
+
 public class DFGInputNode extends DFGNode {
+	private final static Logger LOGGER = Logger.getLogger(DFGInputNode.class
+			.getName());
 
 	public DFGInputNode(String name, String type) {
 		super();

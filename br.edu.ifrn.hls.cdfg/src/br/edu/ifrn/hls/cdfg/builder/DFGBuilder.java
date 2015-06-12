@@ -1,12 +1,18 @@
-package br.edu.ifrn.hls.cdfg.dfg;
+package br.edu.ifrn.hls.cdfg.builder;
 
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.edu.ifrn.hls.cdfg.dfg.DFG;
+import br.edu.ifrn.hls.cdfg.dfg.DFGInputNode;
+import br.edu.ifrn.hls.cdfg.dfg.DFGNodePort;
+import br.edu.ifrn.hls.cdfg.dfg.DFGOperationNode;
+import br.edu.ifrn.hls.cdfg.dfg.DFGOutputNode;
+import br.edu.ifrn.hls.cdfg.dfg.DFGVertex;
 import br.edu.ifrn.hls.cdfg.function.Function;
-import br.edu.ifrn.hls.cdfg.function.FunctionsLib;
+import br.edu.ifrn.hls.cdfg.function.FunctionLib;
 
 public class DFGBuilder {
 
@@ -94,7 +100,7 @@ public class DFGBuilder {
 			Map<String, Object> nodeData = (Map<String, Object>) operations
 					.get(operationName);
 			String functionName = (String) nodeData.get("function");
-			Function function = FunctionsLib.getFunctionsLib().getFunction(
+			Function function = FunctionLib.getFunctionsLib().getFunction(
 					functionName);
 			DFGOperationNode node = new DFGOperationNode(function);
 			node.setName(operationName);
@@ -204,7 +210,7 @@ public class DFGBuilder {
 		if (type.equals("input")) {
 			DFGNodePort inputPort = dfg.getInputs().get(name).getOutputs()
 					.get(name);
-			vertex.setFrom(inputPort);
+			vertex.setSource(inputPort);
 			inputPort.setConnectedTo(vertex);
 		} else if (type.equalsIgnoreCase("output")) {
 			try {
@@ -217,7 +223,7 @@ public class DFGBuilder {
 			String portName = source.get("port");
 			operationPort = dfg.getOperations().get(name).getOutputs()
 					.get(portName);
-			vertex.setFrom(operationPort);
+			vertex.setSource(operationPort);
 			operationPort.setConnectedTo(vertex);
 		}
 	}
