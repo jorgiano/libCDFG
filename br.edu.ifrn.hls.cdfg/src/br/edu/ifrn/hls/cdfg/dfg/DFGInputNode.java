@@ -1,6 +1,5 @@
 package br.edu.ifrn.hls.cdfg.dfg;
 
-
 public class DFGInputNode extends DFGNode {
 
 	public DFGInputNode(String name, String type) {
@@ -9,21 +8,21 @@ public class DFGInputNode extends DFGNode {
 		port.setName(name);
 		port.setType(type);
 		port.setNode(this);
-		this.addOutput(port);
+		this.getOutputs().put(port.getName(), port);
 	}
 
 	public String getName() {
-		return this.getOutputsName().iterator().next();
+		return getOutputPort().getName();
 	}
 
 	public String getType() {
-		return this.getOutputByName(this.getName()).getType();
+		return getOutputPort().getType();
 	}
 
 	public DFGNodePort getOutputPort() {
 		DFGNodePort port = null;
-		if (this.outputs.size() == 1)
-			port = this.outputs.values().iterator().next();
+		if (this.getOutputs().size() == 1)
+			port = this.getOutputs().values().iterator().next();
 		return port;
 	}
 
@@ -45,7 +44,8 @@ public class DFGInputNode extends DFGNode {
 
 	public boolean check() {
 		boolean ok = super.check();
-		ok = ok && this.inputs.size() == 0 && this.outputs.size() == 1;
+		ok = ok && this.getInputs().size() == 0
+				&& this.getOutputs().size() == 1;
 		return ok;
 	}
 

@@ -28,17 +28,21 @@ public class DFGOperationNode extends DFGNode {
 	public boolean check() {
 		boolean ok = true;
 		ok = ok && (this.function != null);
-		ok = ok && (this.inputs.size() == this.function.getNumberOfInputs());
-		ok = ok && (this.outputs.size() == this.function.getNumberOfOutputs());
+		ok = ok
+				&& (this.getInputs().size() == this.function
+						.getNumberOfInputs());
+		ok = ok
+				&& (this.getOutputs().size() == this.function
+						.getNumberOfOutputs());
 		ok = ok && (this.name != null);
 		ok = ok && super.check();
 		if (ok) {
-			for (String inputName : this.inputs.keySet()) {
+			for (String inputName : this.getInputs().keySet()) {
 				ok = ok && (this.function.getInputIndexByName(inputName) >= 0);
 			}
 		}
 		if (ok) {
-			for (String outputName : this.outputs.keySet()) {
+			for (String outputName : this.getOutputs().keySet()) {
 				ok = ok
 						&& (this.function.getOutputIndexByName(outputName) >= 0);
 			}
@@ -53,7 +57,7 @@ public class DFGOperationNode extends DFGNode {
 		sb.append(this.getFunction().getName()).append("\n");
 		sb.append("          ").append("inputs: {");
 		String sep = " ";
-		for (DFGNodePort inputPort : this.inputs.values()) {
+		for (DFGNodePort inputPort : this.getInputs().values()) {
 			sb.append(sep);
 			sb.append(inputPort.getName()).append(": ");
 			sb.append(inputPort.getType()).append(" ");
@@ -62,10 +66,10 @@ public class DFGOperationNode extends DFGNode {
 		sb.append("}\n");
 		sb.append("          ").append("outputs: {");
 		sep = " ";
-		for (DFGNodePort inputPort : this.inputs.values()) {
+		for (DFGNodePort outputPort : this.getOutputs().values()) {
 			sb.append(sep);
-			sb.append(inputPort.getName()).append(": ");
-			sb.append(inputPort.getType()).append(" ");
+			sb.append(outputPort.getName()).append(": ");
+			sb.append(outputPort.getType()).append(" ");
 			sep = ", ";
 		}
 		sb.append("}\n");

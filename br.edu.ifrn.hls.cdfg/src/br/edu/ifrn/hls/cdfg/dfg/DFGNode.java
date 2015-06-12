@@ -6,15 +6,23 @@ import java.util.Set;
 
 public abstract class DFGNode {
 
-	protected Map<String, DFGNodePort> inputs;
-	protected Map<String, DFGNodePort> outputs;
-	protected DFG dfg;
+	private Map<String, DFGNodePort> inputs;
+	private Map<String, DFGNodePort> outputs;
+	private DFG dfg;
 	private Map<String, String> tags;
 
 	public DFGNode() {
 		inputs = new HashMap<String, DFGNodePort>();
 		outputs = new HashMap<String, DFGNodePort>();
 		tags = new HashMap<String, String>();
+	}
+
+	public Map<String, DFGNodePort> getInputs() {
+		return inputs;
+	}
+
+	public Map<String, DFGNodePort> getOutputs() {
+		return outputs;
 	}
 
 	public DFG getDFG() {
@@ -24,7 +32,7 @@ public abstract class DFGNode {
 	public void setDFG(DFG dfg) {
 		this.dfg = dfg;
 	}
-
+/*
 	public void addInput(DFGNodePort port) {
 		this.inputs.put(port.getName(), port);
 	}
@@ -64,7 +72,7 @@ public abstract class DFGNode {
 	public void removeOutputByName(String name) {
 		outputs.remove(name);
 	}
-
+*/
 	public Map<String, String> getTags() {
 		return this.tags;
 	}

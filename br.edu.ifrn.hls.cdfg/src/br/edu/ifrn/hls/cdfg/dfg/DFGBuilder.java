@@ -121,7 +121,7 @@ public class DFGBuilder {
 			port.setName(outputName);
 			port.setType(type);
 			port.setNode(node);
-			node.addOutput(port);
+			node.getOutputs().put(port.getName(), port);
 		}
 	}
 
@@ -135,7 +135,7 @@ public class DFGBuilder {
 			port.setName(inputName);
 			port.setType(type);
 			port.setNode(node);
-			node.addInput(port);
+			node.getInputs().put(port.getName(), port);
 		}
 	}
 
@@ -181,8 +181,8 @@ public class DFGBuilder {
 					e.printStackTrace();
 				}
 			} else if (targetType.equalsIgnoreCase("output")) {
-				DFGNodePort outputPort = dfg.getOutputByName(targetName)
-						.getInputByName(targetName);
+				DFGNodePort outputPort = dfg.getOutputs().get(targetName)
+						.getInputs().get(targetName);
 				System.out.println("Setting output port "
 						+ outputPort.getName());
 				vertex.addTarget(outputPort);
@@ -192,7 +192,7 @@ public class DFGBuilder {
 				DFGNodePort operationPort;
 				String portName = target.get("port");
 				DFGOperationNode op = dfg.getOperationByName(targetName);
-				operationPort = op.getInputByName(portName);
+				operationPort = op.getInputs().get(portName);
 				vertex.addTarget(operationPort);
 				operationPort.setConnectedTo(vertex);
 			}
@@ -202,8 +202,8 @@ public class DFGBuilder {
 	private static void buildVertexSource(DFG dfg, Map<String, String> source,
 			String type, String name, DFGVertex vertex) {
 		if (type.equals("input")) {
-			DFGNodePort inputPort = dfg.getInputByName(name).getOutputByName(
-					name);
+			DFGNodePort inputPort = dfg.getInputs().get(name).getOutputs()
+					.get(name);
 			vertex.setFrom(inputPort);
 			inputPort.setConnectedTo(vertex);
 		} else if (type.equalsIgnoreCase("output")) {
@@ -215,8 +215,8 @@ public class DFGBuilder {
 		} else if (type.equals("operation")) {
 			DFGNodePort operationPort;
 			String portName = source.get("port");
-			operationPort = dfg.getOperationByName(name).getOutputByName(
-					portName);
+			operationPort = dfg.getOperations().get(name).getOutputs()
+					.get(portName);
 			vertex.setFrom(operationPort);
 			operationPort.setConnectedTo(vertex);
 		}

@@ -10,7 +10,7 @@ public class DFG {
 	private final static Logger LOGGER = Logger.getLogger(DFG.class.getName());
 
 	private String name;
-	private Map<String, DFGOperationNode> nodes;
+	private Map<String, DFGOperationNode> operations;
 	private Map<String, DFGVertex> vertices;
 	private Map<String, DFGInputNode> inputs;
 	private Map<String, DFGOutputNode> outputs;
@@ -21,8 +21,24 @@ public class DFG {
 		return this.tags;
 	}
 
+	public Map<String, DFGOperationNode> getOperations() {
+		return operations;
+	}
+
+	public Map<String, DFGVertex> getVertices() {
+		return vertices;
+	}
+
+	public Map<String, DFGInputNode> getInputs() {
+		return inputs;
+	}
+
+	public Map<String, DFGOutputNode> getOutputs() {
+		return outputs;
+	}
+
 	private void init() {
-		nodes = new HashMap<String, DFGOperationNode>();
+		operations = new HashMap<String, DFGOperationNode>();
 		vertices = new HashMap<String, DFGVertex>();
 		inputs = new HashMap<String, DFGInputNode>();
 		outputs = new HashMap<String, DFGOutputNode>();
@@ -77,7 +93,7 @@ public class DFG {
 		/* TODO: check integrity */
 		LOGGER.log(Level.FINE, "Adding operation "
 				+ operation.getFunction().getName() + " to DFG " + this.name);
-		nodes.put(operation.getName(), operation);
+		operations.put(operation.getName(), operation);
 	}
 
 	public void addVertex(DFGVertex vertex) {
@@ -94,8 +110,8 @@ public class DFG {
 		return outputs.size();
 	}
 
-	public int numberOfNodes() {
-		return nodes.size();
+	public int numberOfOperations() {
+		return operations.size();
 	}
 
 	public int numberOfVertices() {
@@ -103,7 +119,7 @@ public class DFG {
 	}
 
 	public DFGOperationNode getOperationByName(String name) {
-		return this.nodes.get(name);
+		return this.operations.get(name);
 	}
 
 	public boolean check() {
@@ -125,7 +141,7 @@ public class DFG {
 
 	private boolean checkOperations() {
 		boolean ok = true;
-		for (DFGOperationNode node : this.nodes.values()) {
+		for (DFGOperationNode node : this.operations.values()) {
 			ok = ok && (node.check());
 			ok = ok && (node.getDFG() == this);
 		}
@@ -179,7 +195,7 @@ public class DFG {
 			sb.append(output.toYAML());
 		}
 		sb.append("      operations:\n");
-		for (DFGOperationNode node : this.nodes.values()) {
+		for (DFGOperationNode node : this.operations.values()) {
 			sb.append(node.toYAML());
 		}
 		sb.append("    vertices:\n");

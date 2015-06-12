@@ -80,7 +80,7 @@ public class DFGVertex {
 		if (this.getFrom().getNode() instanceof DFGInputNode) {
 			sb.append("input, name: ");
 			sb.append(this.getFrom().getName());
-			sb.append("}\n ");
+			sb.append("}\n");
 		} else if (this.getFrom().getNode() instanceof DFGOperationNode) {
 			DFGOperationNode node = (DFGOperationNode) this.getFrom().getNode();
 			sb.append("operation, name: ");
@@ -90,7 +90,7 @@ public class DFGVertex {
 		} else if (this.getFrom().getNode() instanceof DFGOutputNode) {
 			System.out.println("Error: outputport set as vertex source!");
 		}
-		sb.append("       targets: [");
+		sb.append("        targets: [");
 		String sep = " ";
 		for (DFGNodePort node : this.targets) {
 			sb.append(sep).append("{type: ");

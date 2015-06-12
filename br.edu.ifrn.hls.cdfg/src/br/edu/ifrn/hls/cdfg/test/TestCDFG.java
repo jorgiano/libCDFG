@@ -1,8 +1,10 @@
 package br.edu.ifrn.hls.cdfg.test;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,12 +31,32 @@ public class TestCDFG {
 		try {
 			FunctionsLib.getFunctionsLib().loadFromFile("functions.yml");
 			cdfg = loadInitFromYAMLFile("mult_add.yml");
+			// cdfg = loadInitFromYAMLFile("mult_add.yml");
 			initDFG = cdfg.getInitDFG();
 			System.out.println("\n\ninit DFG: " + initDFG);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		FileWriter fos = null;
+		BufferedWriter bof = null;
+		try {
+			fos = new FileWriter(new File("saida.yml"));
+			bof = new BufferedWriter(fos);
+			bof.write(cdfg.toYAML());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bof.close();
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -72,12 +94,10 @@ public class TestCDFG {
 			System.out.println("  Number of Outputs    = "
 					+ init.numberOfOutputs());
 			System.out.println("  Number of Nodes      = "
-					+ init.numberOfNodes());
+					+ init.numberOfOperations());
 			System.out.println("  Number of Vertices   = "
 					+ init.numberOfVertices());
 			System.out.println("  Test                 = " + init.check());
-			System.out.println("\n\nYAML:");
-			System.out.println(cdfg.toYAML());
 		}
 		fis.close();
 		return cdfg;
