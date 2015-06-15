@@ -30,7 +30,7 @@ public class TestCDFG {
 		LOGGER.log(Level.INFO, "Test load init DFG from YAML file");
 		try {
 			FunctionLib.getFunctionsLib().loadFromFile("functions.yml");
-			cdfg = loadInitFromYAMLFile("add.yml");
+			cdfg = loadInitFromYAMLFile("mult_add.yml");
 			// cdfg = loadInitFromYAMLFile("mult_add.yml");
 			initDFG = cdfg.getInitDFG();
 		} catch (FileNotFoundException e) {
