@@ -189,8 +189,6 @@ public class DFGBuilder {
 			} else if (targetType.equalsIgnoreCase("output")) {
 				DFGNodePort outputPort = dfg.getOutputs().get(targetName)
 						.getInputs().get(targetName);
-				System.out.println("Setting output port "
-						+ outputPort.getName());
 				vertex.addTarget(outputPort);
 				outputPort.setConnectedTo(vertex);
 
