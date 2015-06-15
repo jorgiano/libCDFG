@@ -1,5 +1,6 @@
 package br.edu.ifrn.hls.cdfg.dfg;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DFGInputNode extends DFGNode {
@@ -8,6 +9,7 @@ public class DFGInputNode extends DFGNode {
 
 	public DFGInputNode(String name, String type) {
 		super();
+		LOGGER.log(Level.FINE, "Creating input node {0}", name);
 		DFGNodePort port = new DFGNodePort();
 		port.setName(name);
 		port.setType(type);

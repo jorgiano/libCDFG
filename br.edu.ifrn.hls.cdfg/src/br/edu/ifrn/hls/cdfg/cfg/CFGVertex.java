@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import br.edu.ifrn.hls.cdfg.dfg.DFG;
-
 public class CFGVertex {
 
 	private final static Logger LOGGER = Logger.getLogger(CFGVertex.class
 			.getName());
+
+	private CFGNode source;
+	private CFGNode target;
 
 	private Map<String, String> tags;
 
