@@ -1,0 +1,13 @@
+digraph A {
+  a [shape=box,style=dotted];
+  b [shape=box,style=dotted];
+  c [shape=box,style=dotted];
+  s [shape=box,style=dotted];
+  {rank=source;a;b;c}
+  {rank=sink;s}
+  a -> "+" [label=v1];
+  b -> "*" [label=v2];
+  c -> "*" [label=v3];
+  "*" -> "+" [label=v4];
+  "+" -> s [label=v5];
+}

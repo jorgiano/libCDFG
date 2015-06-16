@@ -1,0 +1,11 @@
+digraph A {
+  a [shape=box];
+  b [shape=box];
+  c [shape=box];
+  s [shape=box];
+  a -> "+";
+  b -> "*";
+  c -> "*";
+  "*" -> "+";
+  "+" -> s;
+}
