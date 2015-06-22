@@ -35,7 +35,7 @@ public class DFGBuilder {
 		buildDFGVertices(dfg, vertices);
 		@SuppressWarnings("unchecked")
 		Map<String, Object> tags = (Map<String, Object>) dfgData.get("tags");
-		buildDFGTags(dfg, tags);
+		addTags(tags, dfg.getTags());
 		return dfg;
 	}
 
@@ -64,10 +64,7 @@ public class DFGBuilder {
 			@SuppressWarnings("unchecked")
 			Map<String, Object> tags = (Map<String, Object>) inputData
 					.get("tags");
-			if (tags != null)
-				for (String tagName : tags.keySet()) {
-					input.getTags().put(tagName, (String) tags.get(tagName));
-				}
+			addTags(tags, input.getTags());
 			input.setDFG(dfg);
 			dfg.addInputNode(input);
 		}
@@ -84,10 +81,7 @@ public class DFGBuilder {
 			@SuppressWarnings("unchecked")
 			Map<String, Object> tags = (Map<String, Object>) outputData
 					.get("tags");
-			if (tags != null)
-				for (String tagName : tags.keySet()) {
-					output.getTags().put(tagName, (String) tags.get(tagName));
-				}
+			addTags(tags, output.getTags());
 			output.setDFG(dfg);
 			dfg.addOutputNode(output);
 		}
@@ -112,6 +106,10 @@ public class DFGBuilder {
 			Map<String, Object> outputs = (Map<String, Object>) nodeData
 					.get("outputs");
 			buildDFGNodeOutputPorts(node, outputs);
+			@SuppressWarnings("unchecked")
+			Map<String, Object> tags = (Map<String, Object>) nodeData
+					.get("tags");
+			addTags(tags, node.getTags());
 			node.setDFG(dfg);
 			dfg.addOperationNode(node);
 
@@ -165,14 +163,10 @@ public class DFGBuilder {
 			@SuppressWarnings("unchecked")
 			Map<String, Object> tags = (Map<String, Object>) vertexData
 					.get("tags");
-			buildVertexTags(vertex, tags);
+			addTags(tags, vertex.getTags());
 			vertex.setDFG(dfg);
 			dfg.addVertex(vertex);
 		}
-	}
-
-	private static void buildVertexTags(DFGVertex vertex,
-			Map<String, Object> tags) {
 	}
 
 	private static void buildVertexTargets(DFG dfg, DFGVertex vertex,
@@ -226,9 +220,11 @@ public class DFGBuilder {
 		}
 	}
 
-	private static void buildDFGTags(DFG dfg, Map<String, Object> tags) {
-		// TODO Auto-generated method stub
-
+	private static void addTags(Map<String, Object> source,
+			Map<String, String> target) {
+		if (source != null)
+			for (String tagName : source.keySet()) {
+				target.put(tagName, (String) source.get(tagName).toString());
+			}
 	}
-
 }

@@ -7,7 +7,7 @@ nodes:
       inputs:
         a:
           type: i32
-          tags: {}
+          tags: {a: 1, b: 2}
         b: 
           type: i32
           tags: {}
@@ -39,7 +39,7 @@ nodes:
       v2:
         source: {type: input, name: b}
         targets: [{type: operation, name: op1, port: a}]
-        tags: {}
+        tags: {c2: legal}
       v3:
         source: {type: input, name: c}
         targets: [{type: operation, name: op1, port: b}]
@@ -52,7 +52,7 @@ nodes:
         source: {type: operation, name: op2, port: s}
         targets: [{type: output, name: s}]
         tags: {}
-    tags: {}
+    tags: {dfgTag: funciona}
 vertices:
   tags: {}
 init:

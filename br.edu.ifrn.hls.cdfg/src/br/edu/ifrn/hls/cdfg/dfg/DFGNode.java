@@ -11,12 +11,14 @@ public abstract class DFGNode {
 
 	private Map<String, DFGNodePort> inputs;
 	private Map<String, DFGNodePort> outputs;
+	private Map<String, DFGNode> dependsOn;
 	private DFG dfg;
 	private Map<String, String> tags;
 
 	public DFGNode() {
 		inputs = new HashMap<String, DFGNodePort>();
 		outputs = new HashMap<String, DFGNodePort>();
+		dependsOn = new HashMap<String, DFGNode>();
 		tags = new HashMap<String, String>();
 	}
 

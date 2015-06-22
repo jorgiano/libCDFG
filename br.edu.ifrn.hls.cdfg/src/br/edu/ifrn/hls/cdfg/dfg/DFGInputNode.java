@@ -43,8 +43,17 @@ public class DFGInputNode extends DFGNode {
 		StringBuilder sb = new StringBuilder("        ");
 		sb.append(this.getName()).append(":\n          ");
 		sb.append("type: ").append(this.getType());
-		/* TODO: add tags to YAML */
-		sb.append("\n          tags: {}\n");
+		sb.append("\n          tags: {");
+		String sep = " ";
+		for (String tagName : this.getTags().keySet()) {
+			String value = this.getTags().get(tagName);
+			sb.append(sep);
+			sb.append(tagName);
+			sb.append(": ");
+			sb.append(value);
+			sep = ",";
+		}
+		sb.append("}\n");
 		return sb.toString();
 	}
 

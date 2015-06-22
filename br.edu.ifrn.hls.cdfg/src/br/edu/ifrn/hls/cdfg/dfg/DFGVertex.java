@@ -40,6 +40,14 @@ public class DFGVertex {
 		return targets.size();
 	}
 
+	public List<DFGNode> getTargetsNodes() {
+		List<DFGNode> nodes = new ArrayList<DFGNode>();
+		for (DFGNodePort port : this.targets) {
+			nodes.add(port.getNode());
+		}
+		return nodes;
+	}
+
 	public DFGNodePort getTarget(int index) {
 		return targets.get(index);
 	}
@@ -115,7 +123,17 @@ public class DFGVertex {
 			sep = ", ";
 		}
 		sb.append("]\n");
-		sb.append("        tags: {}\n");
+		sb.append("        tags: {");
+		sep = " ";
+		for (String tagName : this.getTags().keySet()) {
+			String value = this.getTags().get(tagName);
+			sb.append(sep);
+			sb.append(tagName);
+			sb.append(": ");
+			sb.append(value);
+			sep = ",";
+		}
+		sb.append("}\n");
 		return sb.toString();
 	}
 }

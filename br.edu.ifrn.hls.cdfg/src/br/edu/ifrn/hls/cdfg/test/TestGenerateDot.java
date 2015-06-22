@@ -27,7 +27,7 @@ public class TestGenerateDot {
 		CFG cdfg = null;
 		try {
 			FunctionLib.getFunctionsLib().loadFromFile("functions.yml");
-			cdfg = loadInitFromYAMLFile("add.yml");
+			cdfg = loadInitFromYAMLFile("mult_add.yml");
 			initDFG = cdfg.getInitDFG();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -78,8 +78,18 @@ public class DFGOperationNode extends DFGNode {
 			sep = ", ";
 		}
 		sb.append("}\n");
-		sb.append("          dependsOn: []\n");
-		sb.append("          tags: {}\n");
+		sb.append("          depends_on: []\n");
+		sb.append("          tags: {");
+		sep = " ";
+		for (String tagName : this.getTags().keySet()) {
+			String value = this.getTags().get(tagName);
+			sb.append(sep);
+			sb.append(tagName);
+			sb.append(": ");
+			sb.append(value);
+			sep = ",";
+		}
+		sb.append("}\n");
 		return sb.toString();
 	}
 }

@@ -202,7 +202,17 @@ public class DFG {
 		for (DFGVertex vertex : this.vertices.values()) {
 			sb.append(vertex.toYAML());
 		}
-		sb.append("    tags: {}\n");
+		sb.append("    tags: {");
+		String sep = " ";
+		for (String tagName : this.getTags().keySet()) {
+			String value = this.getTags().get(tagName);
+			sb.append(sep);
+			sb.append(tagName);
+			sb.append(": ");
+			sb.append(value);
+			sep = ",";
+		}
+		sb.append("}\n");
 		return sb.toString();
 	}
 }
