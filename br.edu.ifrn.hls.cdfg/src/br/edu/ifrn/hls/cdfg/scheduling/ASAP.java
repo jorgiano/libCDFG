@@ -25,7 +25,6 @@ public class ASAP {
 	}
 
 	private int scheduleNode(DFG dfg, DFGNode node) {
-
 		String asap_s = node.getTags().get("asap");
 		if (asap_s != null) {
 			return Integer.parseInt(asap_s);
@@ -34,7 +33,7 @@ public class ASAP {
 		for (DFGNodePort in : node.getInputs().values()) {
 			int asap_entrada = scheduleNode(dfg, in.getConnectedTo()
 					.getSource().getNode());
-			if (asap_entrada > asap) {
+			if (asap_entrada + 1 > asap) {
 				asap = asap_entrada + 1;
 			}
 		}
