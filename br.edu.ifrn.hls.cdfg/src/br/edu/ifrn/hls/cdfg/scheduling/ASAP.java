@@ -4,6 +4,7 @@ import br.edu.ifrn.hls.cdfg.dfg.DFG;
 import br.edu.ifrn.hls.cdfg.dfg.DFGInputNode;
 import br.edu.ifrn.hls.cdfg.dfg.DFGNode;
 import br.edu.ifrn.hls.cdfg.dfg.DFGNodePort;
+import br.edu.ifrn.hls.cdfg.dfg.DFGOperationNode;
 import br.edu.ifrn.hls.cdfg.dfg.DFGOutputNode;
 
 public class ASAP {
@@ -20,8 +21,15 @@ public class ASAP {
 	}
 
 	private void removeASAP(DFG dfg) {
-		// TODO Auto-generated method stub
-
+		for(DFGInputNode in : dfg.getInputs().values()){
+			in.getTags().remove("alap");
+		}
+		for(DFGOperationNode op : dfg.getOperations().values()){
+			op.getTags().remove("alap");
+		}
+		for(DFGOutputNode out : dfg.getOutputs().values()){
+			out.getTags().remove("alap");
+		}
 	}
 
 	private int scheduleNode(DFG dfg, DFGNode node) {

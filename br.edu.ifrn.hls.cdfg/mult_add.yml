@@ -7,7 +7,7 @@ nodes:
       inputs:
         a:
           type: i32
-          tags: {a: 1, b: 2}
+          tags: {}
         b: 
           type: i32
           tags: {}

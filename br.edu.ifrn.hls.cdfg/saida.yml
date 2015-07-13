@@ -1,0 +1,109 @@
+---
+name:
+  adder
+nodes:
+  bb0:
+    nodes:
+      inputs:
+        b:
+          type: i32
+          tags: { alap: 0,asap: 0}
+        c:
+          type: i32
+          tags: { alap: 0,asap: 0}
+        a:
+          type: i32
+          tags: { alap: 0,asap: 0}
+      outputs:
+        s2:
+          type: i32
+          tags: { alap: 4,asap: 2}
+        s1:
+          type: i32
+          tags: { alap: 4,asap: 4}
+      operations:
+        op1:
+          function: Addition
+          inputs: { b: i32 , a: i32 }
+          outputs: { s2: i32 , s1: i32 }
+          depends_on: []
+          tags: { alap: 1,asap: 1}
+        op2:
+          function: Root
+          inputs: { b: i32 , a: i32 }
+          outputs: { s: i32 }
+          depends_on: []
+          tags: { alap: 3,asap: 1}
+        op3:
+          function: Multiplication
+          inputs: { b: i32 , a: i32 }
+          outputs: { s: i32 }
+          depends_on: []
+          tags: { alap: 2,asap: 2}
+        op4:
+          function: Subtraction
+          inputs: { b: i32 , a: i32 }
+          outputs: { s: i32 }
+          depends_on: []
+          tags: { alap: 2,asap: 2}
+        op5:
+          function: Division
+          inputs: { b: i32 , a: i32 }
+          outputs: { s: i32 }
+          depends_on: []
+          tags: { alap: 3,asap: 3}
+    vertices:
+      v1:
+        source: { type: input, name: a}
+        targets: [ {type: operation, name: op4, port: a}]
+        tags: {}
+      v7:
+        source: { type: operation, name: op1, port: s1}
+        targets: [ {type: operation, name: op4, port: b}]
+        tags: {}
+      v5:
+        source: { type: input, name: c}
+        targets: [ {type: operation, name: op3, port: b}]
+        tags: {}
+      v6:
+        source: { type: input, name: c}
+        targets: [ {type: operation, name: op2, port: b}]
+        tags: {}
+      v4:
+        source: { type: input, name: b}
+        targets: [ {type: operation, name: op2, port: a}]
+        tags: {}
+      v9:
+        source: { type: operation, name: op2, port: s}
+        targets: [ {type: output, name: s2}]
+        tags: {}
+      v3:
+        source: { type: input, name: b}
+        targets: [ {type: operation, name: op1, port: b}]
+        tags: {}
+      v8:
+        source: { type: operation, name: op1, port: s2}
+        targets: [ {type: operation, name: op3, port: a}]
+        tags: {}
+      v2:
+        source: { type: input, name: a}
+        targets: [ {type: operation, name: op1, port: a}]
+        tags: {}
+      v11:
+        source: { type: operation, name: op3, port: s}
+        targets: [ {type: operation, name: op5, port: b}]
+        tags: {}
+      v12:
+        source: { type: operation, name: op5, port: s}
+        targets: [ {type: output, name: s1}]
+        tags: {}
+      v10:
+        source: { type: operation, name: op4, port: s}
+        targets: [ {type: operation, name: op5, port: a}]
+        tags: {}
+    tags: {}
+vertices:
+init:
+  name: bb0
+end: []
+tags: {}

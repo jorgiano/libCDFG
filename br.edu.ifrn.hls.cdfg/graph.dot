@@ -1,0 +1,40 @@
+digraph bb0
+{
+  b[shape=box];
+  c[shape=box];
+  a[shape=box];
+  s2[shape=box];
+  s1[shape=box];
+  "+";
+  "sqrt";
+  "x";
+  "-";
+  "÷";
+
+  {rank=source;"b";"c";"a"}
+  {rank=sink;"s2";"s1"}
+  "a"->"-";
+
+  "+"->"-";
+
+  "c"->"x";
+
+  "c"->"sqrt";
+
+  "b"->"sqrt";
+
+  "sqrt"->"s2";
+
+  "b"->"+";
+
+  "+"->"x";
+
+  "a"->"+";
+
+  "x"->"÷";
+
+  "÷"->"s1";
+
+  "-"->"÷";
+
+}

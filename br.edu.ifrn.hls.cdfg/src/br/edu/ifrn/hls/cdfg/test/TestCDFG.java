@@ -16,6 +16,8 @@ import br.edu.ifrn.hls.cdfg.builder.CFGBuilder;
 import br.edu.ifrn.hls.cdfg.cfg.CFG;
 import br.edu.ifrn.hls.cdfg.dfg.DFG;
 import br.edu.ifrn.hls.cdfg.function.FunctionLib;
+import br.edu.ifrn.hls.cdfg.scheduling.ALAP;
+import br.edu.ifrn.hls.cdfg.scheduling.ASAP;
 
 public class TestCDFG {
 
@@ -26,11 +28,13 @@ public class TestCDFG {
 
 		DFG initDFG = null;
 		CFG cdfg = null;
+		//ASAP asap = new ASAP();
+		ALAP alap = new ALAP();
 		LOGGER.setLevel(Level.FINER);
 		LOGGER.log(Level.INFO, "Test load init DFG from YAML file");
 		try {
 			FunctionLib.getFunctionsLib().loadFromFile("functions.yml");
-			cdfg = loadInitFromYAMLFile("mult_add.yml");
+			cdfg = loadInitFromYAMLFile("foo.yml");
 			// cdfg = loadInitFromYAMLFile("mult_add.yml");
 			initDFG = cdfg.getInitDFG();
 		} catch (FileNotFoundException e) {
@@ -38,6 +42,7 @@ public class TestCDFG {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		alap.schedule(initDFG);
 		FileWriter fos = null;
 		BufferedWriter bof = null;
 		try {

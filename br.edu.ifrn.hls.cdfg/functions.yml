@@ -24,9 +24,9 @@ Reminder:
   outputs: [s]
   mnemonic: "%"
   tags: {}
-Square root:
+Root: #Square root
   inputs: [n]
   outputs: [s]
-  mnemonic: "\u221A"
+  mnemonic: "sqrt" #"\u221A"
   tags: {}
   
