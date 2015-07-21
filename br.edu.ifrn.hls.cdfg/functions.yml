@@ -29,4 +29,13 @@ Root: #Square root
   outputs: [s]
   mnemonic: "sqrt" #"\u221A"
   tags: {}
-  
+Pow:
+  inputs: [n]
+  outputs: [s]
+  mnemonic: "**" #"\u221A"
+  tags: {}
+Negative:
+  inputs: [n]
+  outputs: [s]
+  mnemonic: "neg" #"\u221A"
+  tags: {}

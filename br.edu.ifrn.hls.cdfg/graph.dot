@@ -1,40 +1,31 @@
 digraph bb0
 {
+  a[shape=box];
+  c4[shape=box];
   b[shape=box];
   c[shape=box];
-  a[shape=box];
-  s2[shape=box];
-  s1[shape=box];
-  "+";
-  "sqrt";
-  "x";
-  "-";
-  "÷";
+  c2[shape=box];
+  x1[shape=box];
+  x2[shape=box];
+  op2[label="-"];
+  op1[label="+"];
+  op4[label="sqrt"];
+  op3[label="-"];
+  op6[label="x"];
+  op10[label="÷"];
+  op5[label="**"];
+  op11[label="neg"];
+  op8[label="x"];
+  op7[label="x"];
+  op9[label="÷"];
 
-  {rank=source;"b";"c";"a"}
-  {rank=sink;"s2";"s1"}
-  "a"->"-";
+  {rank=source;"a";"c4";"b";"c";"c2"}
+  {rank=sink;"x1";"x2"}
+  "b"->op6;
+"b"->op7;
 
-  "+"->"-";
+  "c4"->op5;
 
-  "c"->"x";
-
-  "c"->"sqrt";
-
-  "b"->"sqrt";
-
-  "sqrt"->"s2";
-
-  "b"->"+";
-
-  "+"->"x";
-
-  "a"->"+";
-
-  "x"->"÷";
-
-  "÷"->"s1";
-
-  "-"->"÷";
+  "c"->op5;
 
 }

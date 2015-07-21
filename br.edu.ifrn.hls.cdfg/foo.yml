@@ -1,6 +1,6 @@
 ---
 name:
-  adder
+  foo
 nodes:
   bb0:
     nodes:

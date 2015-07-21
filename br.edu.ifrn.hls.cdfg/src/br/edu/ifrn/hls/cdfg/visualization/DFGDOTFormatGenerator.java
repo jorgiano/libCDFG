@@ -61,22 +61,25 @@ public class DFGDOTFormatGenerator {
 		for (DFGVertex vertex : vertices.values()) {
 			sb.append("  ");
 			for (DFGNode target : vertex.getTargetsNodes()) {
-				sb.append("\"");
 				if (vertex.getSource().getNode() instanceof DFGInputNode) {
+          sb.append("\"");
 					sb.append(vertex.getSource().getName());
+          sb.append("\"");
 				} else if (vertex.getSource().getNode() instanceof DFGOperationNode) {
 					DFGOperationNode op = (DFGOperationNode) vertex.getSource()
 							.getNode();
-					sb.append(op.getFunction().getMnemonic());
+					sb.append(op.getName());
 				}
-				sb.append("\"->\"");
+				sb.append("->");
 				if (target instanceof DFGOutputNode) {
+					sb.append("\"");
 					sb.append(((DFGOutputNode) target).getName());
+					sb.append("\"");
 				} else if (target instanceof DFGOperationNode) {
 					DFGOperationNode op = (DFGOperationNode) target;
-					sb.append(op.getFunction().getMnemonic());
+					sb.append(op.getName());
 				}
-				sb.append("\";\n");
+				sb.append(";\n");
 			}
 			sb.append("\n");
 		}
@@ -94,9 +97,11 @@ public class DFGDOTFormatGenerator {
 	private void buildNodes(Map<String, DFGOperationNode> operations,
 			StringBuilder sb) {
 		for (DFGOperationNode op : operations.values()) {
-			sb.append("  \"");
+			sb.append("  ");
+			sb.append(op.getName());
+			sb.append("[label=\"");
 			sb.append(op.getFunction().getMnemonic());
-			sb.append("\";\n");
+			sb.append("\"];\n");
 		}
 	}
 

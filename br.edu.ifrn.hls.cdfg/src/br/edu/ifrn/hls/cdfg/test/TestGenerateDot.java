@@ -28,7 +28,7 @@ public class TestGenerateDot {
 		Runtime terminal = Runtime.getRuntime();
 		try {
 			FunctionLib.getFunctionsLib().loadFromFile("functions.yml");
-			cdfg = loadInitFromYAMLFile("foo.yml");
+			cdfg = loadInitFromYAMLFile("second_degree.yml");
 			initDFG = cdfg.getInitDFG();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -56,9 +56,9 @@ public class TestGenerateDot {
 		}
 		
 		try{
-			terminal.exec("dot -Tpdf graph.dot -o saida.pdf");
-		} catch (IOException e) {
-			e.printStackTrace();
+  		terminal.exec("dot -Tpdf graph.dot -o saida.pdf");
+  	} catch (IOException e) {
+  		e.printStackTrace();
 		}
 	}
 

@@ -1,0 +1,113 @@
+---
+name:
+  adder
+nodes:
+  bb0:
+    nodes:
+      inputs:
+        a:
+          type: i32
+          tags: {}
+        b:
+          type: i32
+          tags: {}
+        c:
+          type: i32
+          tags: {}
+        c4: 
+          type: i32
+          tags: {}
+        c2: 
+          type: i32
+          tags: {}
+      outputs:
+        x1: 
+          type: i32
+          tags: {}
+        x2: 
+          type: i32
+          tags: {}
+      operations:
+        op1:
+          function: Addition
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
+          depends_on: []
+          tags: {}
+        op2:
+          function: Subtraction
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
+          depends_on: []
+          tags: {}
+        op3:
+          function: Subtraction
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
+          depends_on: []
+          tags: {}
+        op4:
+          function: Root
+          inputs: {a: i32}
+          outputs: {s: i32}
+          depends_on: [] 
+          tags: {}
+        op5:
+          function: Pow
+          inputs: {a: i32}
+          outputs: {s: i32}
+          depends_on: []
+          tags: {}
+        op6:
+          function: Multiplication
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
+          depends_on: []
+          tags: {}
+        op7:
+          function: Multiplication
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
+          depends_on: []
+          tags: {}
+        op8:
+          function: Multiplication
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
+          depends_on: []
+          tags: {}
+        op9:
+          function: Division
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
+          depends_on: []
+          tags: {}
+        op10:
+          function: Division
+          inputs: {a: i32, b: i32}
+          outputs: {s: i32}
+          depends_on: []
+        op11:
+         function: Negative
+         inputs: {a: i32}
+         outputs: {s: i32}
+         depends_on: []
+         tags: {}
+    vertices:
+      v1:
+        source: {type: input, name: b}
+        targets: [{type: operation, name: op6, port: a}, {type: operation, name: op7, port: a}]
+        tags: {}
+      v2:
+        source: {type: input, name: c4}
+        targets: [{type: operation, name: op5, port: a}]
+        tags: {}
+      v3:
+        source: {type: input, name: c}
+        targets: [{type: operation, name: op5, port: a}]
+        tags: {}
+    tags: {}
+vertices:
+init:
+  name: bb0
+tags: {}
