@@ -96,15 +96,71 @@ nodes:
     vertices:
       v1:
         source: {type: input, name: b}
-        targets: [{type: operation, name: op6, port: a}, {type: operation, name: op7, port: a}]
+        targets: [{type: operation, name: op11, port: a}, {type: operation, name: op5, port: a}]
         tags: {}
       v2:
         source: {type: input, name: c4}
-        targets: [{type: operation, name: op5, port: a}]
+        targets: [{type: operation, name: op7, port: a}]
         tags: {}
       v3:
         source: {type: input, name: c}
-        targets: [{type: operation, name: op5, port: a}]
+        targets: [{type: operation, name: op6, port: a}]
+        tags: {}
+      v4:
+        source: {type: input, name: a}
+        targets: [{type: operation, name: op6, port: b}]
+        tags: {}
+      v5:
+        source: {type: input, name: a}
+        targets: [{type: operation, name: op8, port: a}]
+        tags: {}
+      v6:
+        source: {type: input, name: c2}
+        targets: [{type: operation, name: op8, port: b}]
+        tags: {}
+      v7:
+        source: {type: operation, name: op11, port: s}
+        targets: [{type: operation, name: op1, port: a}, {type: operation, name: op2, port: a}]
+        tags: {}
+      v8:
+        source: {type: operation, name: op8, port: s}
+        targets: [{type: operation, name: op9, port: b}, {type: operation, name: op10, port: b}]
+        tags: {}
+      v9:
+        source: {type: operation, name: op6, port: s}
+        targets: [{type: operation, name: op7, port: b}]
+        tags: {}
+      v10:
+        source: {type: operation, name: op5, port: s}
+        targets: [{type: operation, name: op3, port: a}]
+        tags: {}
+      v11:
+        source: {type: operation, name: op7, port: s}
+        targets: [{type: operation, name: op3, port: b}]
+        tags: {}
+      v12:
+        source: {type: operation, name: op3, port: s}
+        targets: [{type: operation, name: op4, port: a}]
+        tags: {}
+      v13:
+        source: {type: operation, name: op4, port: s}
+        targets: [{type: operation, name: op1, port: b}, {type: operation, name: op2, port: b}]
+        tags: {}
+      v14:
+        source: {type: operation, name: op1, port: s}
+        targets: [{type: operation, name: op9, port: a}]
+        tags: {}
+      v15:
+        source: {type: operation, name: op2, port: s}
+        targets: [{type: operation, name: op10, port: a}]
+        tags: {}
+      v16:
+        source: {type: operation, name: op9, port: s}
+        targets: [{type: output, name: x1}]
+        tags: {}
+      v17:
+        source: {type: operation, name: op10, port: s}
+        targets: [{type: output, name: x2}]
         tags: {}
     tags: {}
 vertices:
