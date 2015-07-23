@@ -1,10 +1,8 @@
 package br.edu.ifrn.hls.cdfg.scheduling;
 
-import java.rmi.server.Operation;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.soap.Node;
 
 import br.edu.ifrn.hls.cdfg.dfg.DFG;
 import br.edu.ifrn.hls.cdfg.dfg.DFGInputNode;
@@ -28,9 +26,9 @@ public class ALAP {
 		  + dfg.getOperations().size();
 		System.out.println(total);
 		removeALAP(dfg);
-    equalizeOutputs(dfg);
-	  scheduleInputs(dfg);
-	  scheduleOperations(dfg);
+		equalizeOutputs(dfg);
+		scheduleInputs(dfg);
+		scheduleOperations(dfg);
 	}
 
 	private void removeALAP(DFG dfg) {
@@ -47,43 +45,44 @@ public class ALAP {
 
 	private void equalizeOutputs(DFG dfg) {
 	  for (DFGOutputNode out : dfg.getOutputs().values()) {
-      ready.add(out.getName());
-      if (Integer.valueOf(out.getTags().get("asap")) > largerAsap) {
-        largerAsap = Integer.valueOf(out.getTags().get("asap"));
-      }
+		  ready.add(out.getName());
+		  if (Integer.valueOf(out.getTags().get("asap")) > largerAsap) {
+			  largerAsap = Integer.valueOf(out.getTags().get("asap"));
+		  }
 	  }
 	  for (DFGOutputNode out : dfg.getOutputs().values()) {
 	    out.getTags().put("alap", String.valueOf(largerAsap));
 	  }
 	}
+	
   private void scheduleInputs(DFG dfg) {
-    for(DFGInputNode in : dfg.getInputs().values()) {
-      in.getTags().put("alap", "0");
-      ready.add(in.getName());
-    }
+	  for(DFGInputNode in : dfg.getInputs().values()) {
+		  in.getTags().put("alap", "0");
+		  ready.add(in.getName());
+	  }
   }
 
   private void scheduleOperations(DFG dfg) {
-    while(ready.size() < total) {
-      for (DFGOperationNode op : dfg.getOperations().values()) {
-        if(!ready.contains(op.getName())){
-          for(DFGNodePort port : op.getOutputs().values()) {
-            int smallAlap = 10;
-            for(DFGNode node : port.getConnectedTo().getTargetsNodes()){
-              if (node.getTags().get("alap") != null) {
-                if (Integer.valueOf(node.getTags().get("alap")) < smallAlap) {
-                  smallAlap = Integer.valueOf(node.getTags().get("alap"));
-                  op.getTags().put("alap", String.valueOf(smallAlap-1));
-                  if (!ready.contains(op.getName())) {
-                    ready.add(op.getName());
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+	  while(ready.size() < total) {
+		  for (DFGOperationNode op : dfg.getOperations().values()) {
+			  if(!ready.contains(op.getName())){
+				  for(DFGNodePort port : op.getOutputs().values()) {
+					  int smallAlap = largerAsap;
+					  for(DFGNode node : port.getConnectedTo().getTargetsNodes()){
+						  if (node.getTags().get("alap") != null) {
+							  if (Integer.valueOf(node.getTags().get("alap")) < smallAlap) {
+								  smallAlap = Integer.valueOf(node.getTags().get("alap"));
+								  op.getTags().put("alap", String.valueOf(smallAlap-1));
+								  if (!ready.contains(op.getName())) {
+									  ready.add(op.getName());
+								  }
+							  }
+						  }
+					  }
+				  }
+			  }
+		  }
+	  }
   }
 }
 
